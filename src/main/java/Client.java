@@ -35,15 +35,13 @@ public class Client {
                                     new ChannelInboundHandlerAdapter() {
                                         @Override
                                         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-                                            System.out.println("channelRead");
-                                            final ByteBuf m = (ByteBuf) msg;
+                                            StringBuilder str = new StringBuilder();
+                                            ByteBuf m = (ByteBuf) msg;
                                             while (m.isReadable()) {
-                                                System.out.print((char) m.readByte()); //Считываем сообщение со сдвигом индексов
+                                                str.append((char) m.readByte());
                                             }
-
-                                            System.out.flush();
-                                            System.out.println();
-                                            ReferenceCountUtil.release(msg);
+                                            System.out.println("Вернулась строка " + "[ " + str + " ]");
+                                            ctx.close();
                                         }
                                     }
                             );
