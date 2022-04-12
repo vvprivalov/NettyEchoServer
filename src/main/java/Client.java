@@ -17,6 +17,10 @@ public class Client {
     }
 
     public void start() {
+
+        // Строка передаваемая на сервер побуквенно
+        byte[] strBytes = "Welcome to Netty\n".getBytes(StandardCharsets.UTF_8);
+
         //Клиенту достаточно одного ThreadPool для обработки сообщений
         final NioEventLoopGroup group = new NioEventLoopGroup(1);
         try {
@@ -50,11 +54,10 @@ public class Client {
 
             Channel channel = bootstrap.connect("localhost", 9090).sync().channel();
 
-            while (channel.isActive()) {
-                ByteBuf msg = Unpooled.wrappedBuffer(("Hello world! " + new Date()).getBytes(StandardCharsets.UTF_8));
-                channel.write(msg);
-                channel.flush();
-                Thread.sleep(3000);
+            for (int i = 0; i < strBytes.length; i++) {
+                ByteBuf msg = Unpooled.wrappedBuffer(strBytes, i, 1);
+                channel.writeAndFlush(msg);
+                Thread.sleep(1000);
             }
 
             channel.closeFuture().sync();
