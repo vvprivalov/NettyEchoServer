@@ -9,7 +9,7 @@ public class Server {
     private final int port;
 
     public static void main(String[] args) throws InterruptedException {
-        new Server(9000).start();
+        new Server(9090).start();
     }
 
     public Server(int port) {
@@ -35,22 +35,22 @@ public class Server {
 
                                         @Override
                                         public void channelRegistered(ChannelHandlerContext ctx) {
-                                            System.out.println("channelRegistered");
+                                            System.out.println("Канал зарегистрирован");
                                         }
 
                                         @Override
                                         public void channelUnregistered(ChannelHandlerContext ctx) {
-                                            System.out.println("channelUnregistered");
+                                            System.out.println("Канал разрегистрирован");
                                         }
 
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) {
-                                            System.out.println("channelActive");
+                                            System.out.println("Канал активирован");
                                         }
 
                                         @Override
                                         public void channelInactive(ChannelHandlerContext ctx) {
-                                            System.out.println("channelInactive");
+                                            System.out.println("Канал деактивирован");
                                         }
 
                                         @Override
